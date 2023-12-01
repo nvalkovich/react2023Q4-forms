@@ -8,7 +8,7 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "lint": "eslint src --fix",
-    "format:fix": "prettier --write **/*.{js,jsx,ts,tsx,html,css,scss}",
+    "fix": "prettier --write **/*.{js,jsx,ts,tsx,html,css,scss}",
     "preview": "vite preview"
   },
   "dependencies": {
