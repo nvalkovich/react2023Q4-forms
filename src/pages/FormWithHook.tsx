@@ -1,22 +1,21 @@
 import { useForm } from 'react-hook-form';
-
-interface FormInputData {
-  name: string;
-  age: number;
-  email: string;
-  password: string;
-  confirmPassword: string;
-  gender: string;
-  conditionsAccepted: string;
-  file: string;
-  country: string;
-}
+import { setFormData } from '../store/formSlice';
+import { useAppDispatch } from '../store/hooks';
+import { useNavigate } from 'react-router-dom';
+import { FormData } from '../types/interfaces';
 
 export const FormWithHook = () => {
-  const { register, handleSubmit } = useForm<FormInputData>();
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
-  const onSubmit = (data: FormInputData) => {
-    console.log(data);
+  const { register, handleSubmit } = useForm<FormData>();
+
+  const onSubmit = (data: FormData) => {
+    dispatch(setFormData({ ...data, file: data.file[0].name }));
+
+    setTimeout(() => {
+      navigate('/');
+    }, 100);
   };
 
   return (

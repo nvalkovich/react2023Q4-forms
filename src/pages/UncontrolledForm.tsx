@@ -1,6 +1,12 @@
 import { FormEvent, useRef } from 'react';
+import { useAppDispatch } from '../store/hooks';
+import { setFormData } from '../store/formSlice';
+import { useNavigate } from 'react-router-dom';
 
 export const Uncontrolled = () => {
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+
   const nameRef = useRef<HTMLInputElement>(null);
   const ageRef = useRef<HTMLInputElement>(null);
   const emailRef = useRef<HTMLInputElement>(null);
@@ -22,11 +28,15 @@ export const Uncontrolled = () => {
       confirmPassword: confirmPasswordRef.current?.value,
       gender: genderRef.current?.value,
       conditionsAccepted: conditionsAcceptedRef.current?.checked,
-      file: fileRef.current?.value,
+      file: fileRef.current?.files,
       country: countryRef.current?.value,
     };
 
-    console.log(data);
+    dispatch(setFormData({ ...data, file: data.file![0].name }));
+
+    setTimeout(() => {
+      navigate('/');
+    }, 1000);
   };
 
   return (
@@ -56,12 +66,7 @@ export const Uncontrolled = () => {
         name="conditionsAccepted"
       />
 
-      <input
-        ref={fileRef}
-        type="file"
-        name="file"
-        onChange={(e) => console.log(e.target.files)}
-      />
+      <input ref={fileRef} type="file" name="file" />
 
       <label>Country</label>
       <input ref={countryRef} name="country" />

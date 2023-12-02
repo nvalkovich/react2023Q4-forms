@@ -1,6 +1,10 @@
-import { Link, Outlet } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import { useAppSelector } from '../store/hooks';
+import { DataTiles } from '../components/DataTiles';
 
 export const MainPage: React.FC = () => {
+  const dataList = useAppSelector((state) => state.form.dataList);
+
   return (
     <>
       <ul>
@@ -11,8 +15,7 @@ export const MainPage: React.FC = () => {
           <Link to="/with-hook-form">Link to form with React Hook Form</Link>
         </li>
       </ul>
-      <hr />
-      <Outlet />
+      {dataList && <DataTiles data={dataList} />}
     </>
   );
 };

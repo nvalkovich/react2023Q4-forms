@@ -3,17 +3,20 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { MainPage } from './pages/MainPage';
 import { FormWithHook } from './pages/FormWithHook';
 import { Uncontrolled } from './pages/UncontrolledForm';
+import { Provider } from 'react-redux';
+import store from './store';
 
 const App = () => {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<MainPage />}>
+    <Provider store={store}>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<MainPage />} />
           <Route path="/uncontrolled-form" element={<Uncontrolled />} />
           <Route path="/with-hook-form" element={<FormWithHook />} />
-        </Route>
-      </Routes>
-    </BrowserRouter>
+        </Routes>
+      </BrowserRouter>
+    </Provider>
   );
 };
 
