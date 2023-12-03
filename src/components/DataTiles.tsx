@@ -1,27 +1,38 @@
-import { FormData } from '../types/interfaces';
+import { TileData } from '../types/interfaces';
+import './DataTiles.css';
 
 type DataTilesProps = {
-  data: FormData[];
+  data: TileData[];
 };
 
 export const DataTiles = ({ data }: DataTilesProps) => {
+  const reversedData = [...data].reverse();
+
   return (
-    <div>
-      {data.map((dataItem) => {
+    <>
+      {reversedData.map((dataItem, index) => {
         return (
-          <div key={data.indexOf(dataItem)} className="card">
-            <p>{dataItem.name}</p>
-            <p>{dataItem.age}</p>
-            <p>{dataItem.email}</p>
-            <p>{dataItem.password}</p>
-            <p>{dataItem.confirmPassword}</p>
-            <p>{dataItem.gender}</p>
-            <p>{dataItem.conditionsAccepted}</p>
-            <p>{dataItem.file[0].name}</p>
-            <p>{dataItem.country}</p>
+          <div
+            key={dataItem.id}
+            className="data-tile"
+            id={index === 0 ? 'new' : 'old'}
+          >
+            <div className="data-tile__list">
+              <p>Name: {dataItem.name}</p>
+              <p>Age: {dataItem.age}</p>
+              <p>Email: {dataItem.email}</p>
+              <p>Password: {dataItem.password}</p>
+              <p>Gender: {dataItem.gender}</p>
+              <p>
+                Conditions accepted:{' '}
+                {dataItem.conditionsAccepted ? 'yes' : 'no'}
+              </p>
+              <img src={dataItem.file} width={200}></img>
+              <p>Country: {dataItem.country}</p>
+            </div>
           </div>
         );
       })}
-    </div>
+    </>
   );
 };

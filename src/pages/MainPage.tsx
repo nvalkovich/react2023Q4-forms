@@ -1,21 +1,24 @@
 import { Link } from 'react-router-dom';
 import { useAppSelector } from '../store/hooks';
 import { DataTiles } from '../components/DataTiles';
+import './MainPage.css';
 
 export const MainPage: React.FC = () => {
   const dataList = useAppSelector((state) => state.form.dataList);
 
   return (
     <>
-      <ul>
+      <ul className="main-links">
         <li>
-          <Link to="/uncontrolled-form">Link to uncontrolled form</Link>
+          <Link to="/uncontrolled-form">Uncontrolled form</Link>
         </li>
         <li>
-          <Link to="/with-hook-form">Link to form with React Hook Form</Link>
+          <Link to="/with-hook-form">Form with RHF</Link>
         </li>
       </ul>
-      {dataList && <DataTiles data={dataList} />}
+      <div className="data-tiles">
+        {dataList && <DataTiles data={dataList} />}
+      </div>
     </>
   );
 };

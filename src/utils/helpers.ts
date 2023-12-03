@@ -95,27 +95,23 @@ export const getPasswordStyles = (passwordValue: string) => {
       rating++;
     }
 
-    if (passwordValue.length < 4 && rating < 2) {
-      backgroundColor = 'red';
-      width = '200px';
+    if (rating < 2) {
+      backgroundColor = '#d92323bd';
+      width = '100px';
     }
 
-    if (
-      (passwordValue.length < 4 && rating >= 2) ||
-      (passwordValue.length >= 6 && rating < 2) ||
-      (passwordValue.length >= 4 && rating > 1 && rating < 3)
-    ) {
-      backgroundColor = 'grey';
-      width = '300px';
+    if (passwordValue.length >= 4 && rating >= 2 && rating < 3) {
+      backgroundColor = '#ffff0078';
+      width = '250px';
     }
 
     if (passwordValue.length >= 4 && rating == 3) {
-      backgroundColor = 'green';
-      width = '450px';
+      backgroundColor = '#0dff00a1';
+      width = '400px';
     }
 
     if (passwordValue.length >= 6 && rating > 3) {
-      backgroundColor = 'green';
+      backgroundColor = '#16c420';
       width = '500px';
     }
   }

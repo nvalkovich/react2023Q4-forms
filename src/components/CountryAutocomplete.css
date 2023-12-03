@@ -1,18 +1,18 @@
-.country-input {
+.country-input-container {
   display: flex;
   flex-direction: column;
   position: relative;
   width: 100%;
 }
 
-.country-input input {
-  margin-top: 10px;
+.country-input-container input {
+  margin: 10px 0px 0px 0px;
 }
 
 .autocomplete {
   position: absolute;
   left: 0;
-  top: 90px;
+  top: 87px;
   width: inherit;
   background: white;
   list-style: none;

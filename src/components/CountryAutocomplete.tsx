@@ -1,7 +1,7 @@
 import React, { ForwardedRef } from 'react';
 import { ChangeEvent, useState } from 'react';
 import { getFilteredCountries } from '../utils/helpers';
-import './Autocoplete.css';
+import './CountryAutocomplete.css';
 import { ChangeHandler } from 'react-hook-form';
 import { useAppSelector } from '../store/hooks';
 
@@ -10,7 +10,7 @@ type AutocompleteProps = {
   name: string;
 };
 
-export const Autocomplete = React.forwardRef<
+export const CountryAutocomplete = React.forwardRef<
   HTMLInputElement,
   AutocompleteProps
 >(
@@ -47,7 +47,7 @@ export const Autocomplete = React.forwardRef<
     const filteredCountries = getFilteredCountries(countries, searchValue);
 
     return (
-      <div className="country-input">
+      <div className="country-input-container">
         <label htmlFor="country">Country</label>
         <input
           onChange={onChangeInput}

@@ -7,7 +7,7 @@ import {
   generateID,
   getPasswordStyles,
 } from '../utils/helpers';
-import { Autocomplete } from '../components/Autocomplete';
+import { CountryAutocomplete } from '../components/CountryAutocomplete';
 import { ValidationError } from 'yup';
 import { formSchema } from '../utils/yup/formSchema';
 
@@ -129,7 +129,7 @@ export const Uncontrolled = () => {
         <p className="error-message">{errors.confirmPassword}</p>
       )}
 
-      <div className="gender">
+      <div className="gender-radio-container">
         <p>Gender:</p>
         <div className="gender-radio">
           <input
@@ -152,7 +152,7 @@ export const Uncontrolled = () => {
       </div>
       {errors.gender && <p className="error-message">{errors.gender}</p>}
 
-      <div className="conditions-assepted">
+      <div className="conditions-checkbox-container">
         <label htmlFor="conditionsAccepted">
           I agree to the terms and conditions
         </label>
@@ -166,13 +166,13 @@ export const Uncontrolled = () => {
         <p className="error-message">{errors.conditionsAccepted}</p>
       )}
 
-      <div className="file-input">
+      <div className="file-input-container">
         <label htmlFor="file">Choose File</label>
         <input id="file" type="file" ref={fileRef} />
       </div>
       {errors.file && <p className="error-message">{errors.file}</p>}
 
-      <Autocomplete ref={countryRef} name="country" />
+      <CountryAutocomplete ref={countryRef} name="country" />
       {errors.country && <p className="error-message">{errors.country}</p>}
 
       <button type="submit">Submit</button>

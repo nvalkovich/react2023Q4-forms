@@ -9,7 +9,7 @@ import {
   getPasswordStyles,
 } from '../utils/helpers';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { Autocomplete } from '../components/Autocomplete';
+import { CountryAutocomplete } from '../components/CountryAutocomplete';
 import { formSchema } from '../utils/yup/formSchema';
 
 export const FormWithHook = () => {
@@ -69,7 +69,12 @@ export const FormWithHook = () => {
         <p className="error-message">{errors.confirmPassword.message}</p>
       )}
 
-      <div className="gender">
+      <CountryAutocomplete {...register('country')} />
+      {errors.country && (
+        <p className="error-message">{errors.country.message}</p>
+      )}
+
+      <div className="gender-radio-container">
         <p>Gender:</p>
         <div className="gender-radio">
           <input type="radio" id="male" value="male" {...register('gender')} />
@@ -87,7 +92,13 @@ export const FormWithHook = () => {
         <p className="error-message">{errors.gender.message}</p>
       )}
 
-      <div className="conditions-assepted">
+      <div className="file-input-container">
+        <label htmlFor="file">Choose File</label>
+        <input id="file" type="file" {...register('file')} />
+      </div>
+      {errors.file && <p className="error-message">{errors.file.message}</p>}
+
+      <div className="conditions-checkbox-container">
         <label htmlFor="conditionsAccepted">
           I agree to the terms and conditions
         </label>
@@ -95,17 +106,6 @@ export const FormWithHook = () => {
       </div>
       {errors.conditionsAccepted && (
         <p className="error-message">{errors.conditionsAccepted.message}</p>
-      )}
-
-      <div className="file-input">
-        <label htmlFor="file">Choose File</label>
-        <input id="file" type="file" {...register('file')} />
-      </div>
-      {errors.file && <p className="error-message">{errors.file.message}</p>}
-
-      <Autocomplete {...register('country')} />
-      {errors.country && (
-        <p className="error-message">{errors.country.message}</p>
       )}
 
       {Object.entries(errors).length ? (
