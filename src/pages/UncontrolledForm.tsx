@@ -63,9 +63,24 @@ export const Uncontrolled = () => {
       country: countryRef.current?.value,
     };
 
-    const isFormValid = await formSchema.isValid(data, {
-      abortEarly: false,
-    });
+    const isFormValid = await formSchema
+      .validate(data, {
+        abortEarly: false,
+      })
+      .catch((err) => {
+        const errors = err.inner.reduce(
+          (acc: object, error: ValidationError) => {
+            const path = error.path as string;
+            return {
+              ...acc,
+              [path]: error.message,
+            };
+          },
+          {}
+        );
+
+        setErrors(errors);
+      });
 
     if (isFormValid) {
       const file = data.file && data.file[0];
@@ -83,97 +98,110 @@ export const Uncontrolled = () => {
       }, 1000);
 
       setErrors(errorsDefaultState);
-    } else {
-      formSchema.validate(data, { abortEarly: false }).catch((err) => {
-        const errors = err.inner.reduce(
-          (acc: object, error: ValidationError) => {
-            const path = error.path as string;
-            return {
-              ...acc,
-              [path]: error.message,
-            };
-          },
-          {}
-        );
-
-        setErrors(errors);
-      });
     }
   };
 
   return (
-    <form onSubmit={handleSubmit} noValidate>
-      <label>Name</label>
-      <input ref={nameRef} name="name" />
-      {errors.name && <p className="error-message">{errors.name}</p>}
-
-      <label>Age</label>
-      <input type="number" ref={ageRef} name="age" />
-      {errors.age && <p className="error-message">{errors.age}</p>}
-
-      <label>Email</label>
-      <input ref={emailRef} name="email" />
-      {errors.email && <p className="error-message">{errors.email}</p>}
-
-      <label>Password</label>
-      <input ref={passwordRef} name="password" onChange={onPasswordChange} />
-      <div
-        className="password-strength"
-        style={getPasswordStyles(password || '')}
-      ></div>
-      {errors.password && <p className="error-message">{errors.password}</p>}
-
-      <label>Confirm password</label>
-      <input ref={confirmPasswordRef} name="confirmPassword" />
-      {errors.confirmPassword && (
-        <p className="error-message">{errors.confirmPassword}</p>
-      )}
-
-      <div className="gender-radio-container">
-        <p>Gender:</p>
-        <div className="gender-radio">
-          <input
-            type="radio"
-            id="male"
-            value="male"
-            ref={maleGenderRef}
-            name="gender"
-          />
-          <label htmlFor="male">male</label>
-          <input
-            type="radio"
-            id="female"
-            value="female"
-            name="gender"
-            ref={femaleGenderRef}
-          />
-          <label htmlFor="female">female</label>
-        </div>
+    <form onSubmit={handleSubmit} className="form" noValidate>
+      <div className="form__item">
+        <label htmlFor="name">Name</label>
+        <input id="name" ref={nameRef} name="name" />
+        {errors.name && <p className="error-message">{errors.name}</p>}
       </div>
-      {errors.gender && <p className="error-message">{errors.gender}</p>}
 
-      <div className="conditions-checkbox-container">
-        <label htmlFor="conditionsAccepted">
-          I agree to the terms and conditions
-        </label>
+      <div className="form__item">
+        <label htmlFor="age">Age</label>
+        <input id="age" type="number" ref={ageRef} name="age" />
+        {errors.age && <p className="error-message">{errors.age}</p>}
+      </div>
+
+      <div className="form__item">
+        <label htmlFor="email">Email</label>
+        <input id="email" ref={emailRef} name="email" />
+        {errors.email && <p className="error-message">{errors.email}</p>}
+      </div>
+
+      <div className="form__item">
+        <label htmlFor="password">Password</label>
         <input
-          ref={conditionsAcceptedRef}
-          type="checkbox"
-          name="conditionsAccepted"
+          id="password"
+          ref={passwordRef}
+          name="password"
+          onChange={onPasswordChange}
         />
+        <div
+          className="password-strength"
+          style={getPasswordStyles(password || '')}
+        ></div>
+        {errors.password && <p className="error-message">{errors.password}</p>}
       </div>
-      {errors.conditionsAccepted && (
-        <p className="error-message">{errors.conditionsAccepted}</p>
-      )}
 
-      <div className="file-input-container">
-        <label htmlFor="file">Choose File</label>
-        <input id="file" type="file" ref={fileRef} />
+      <div className="form__item">
+        <label htmlFor="confirmPassword">Confirm password</label>
+        <input
+          id="confirmPassword"
+          ref={confirmPasswordRef}
+          name="confirmPassword"
+        />
+        {errors.confirmPassword && (
+          <p className="error-message">{errors.confirmPassword}</p>
+        )}
       </div>
-      {errors.file && <p className="error-message">{errors.file}</p>}
 
-      <CountryAutocomplete ref={countryRef} name="country" />
-      {errors.country && <p className="error-message">{errors.country}</p>}
+      <div className="form__item">
+        <CountryAutocomplete ref={countryRef} name="country" />
+        {errors.country && <p className="error-message">{errors.country}</p>}
+      </div>
+
+      <div className="form__item">
+        <div className="gender-radio-container">
+          <p>Gender:</p>
+          <div className="gender-radio">
+            <input
+              type="radio"
+              id="male"
+              value="male"
+              ref={maleGenderRef}
+              name="gender"
+            />
+            <label htmlFor="male">male</label>
+            <input
+              type="radio"
+              id="female"
+              value="female"
+              name="gender"
+              ref={femaleGenderRef}
+            />
+            <label htmlFor="female">female</label>
+          </div>
+        </div>
+        {errors.gender && <p className="error-message">{errors.gender}</p>}
+      </div>
+
+      <div className="form__item">
+        <div className="file-input-container">
+          <label htmlFor="file">Choose File</label>
+          <input id="file" type="file" ref={fileRef} />
+        </div>
+        {errors.file && <p className="error-message">{errors.file}</p>}
+      </div>
+
+      <div className="form__item">
+        <div className="conditions-checkbox-container">
+          <label htmlFor="conditionsAccepted">
+            I agree to the terms and conditions
+          </label>
+          <input
+            ref={conditionsAcceptedRef}
+            type="checkbox"
+            name="conditionsAccepted"
+            id="conditionsAccepted"
+          />
+        </div>
+        {errors.conditionsAccepted && (
+          <p className="error-message">{errors.conditionsAccepted}</p>
+        )}
+      </div>
 
       <button type="submit">Submit</button>
     </form>

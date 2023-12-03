@@ -10,10 +10,14 @@ export const formSchema = yup.object().shape({
     .required('Name is a required field'),
   age: yup
     .number()
-    .typeError('Age is a required field')
+    .required('Age is a required field')
+    .typeError('Age must be a number')
     .min(0, 'Age must be positive number')
-    .required('Age is a required field'),
-  email: yup.string().email().required('Email is a required field'),
+    .max(100, 'Age must be between 0 - 100 years'),
+  email: yup
+    .string()
+    .email('Invalid email address')
+    .required('Email is a required field'),
   password: yup
     .string()
     .min(6, 'Password must be 6 or more characters')
@@ -29,7 +33,7 @@ export const formSchema = yup.object().shape({
   gender: yup
     .string()
     .nonNullable()
-    .typeError('Gender is required field')
+    .typeError('Gender must be selected')
     .strict(true)
     .required('Gender is a required field'),
   conditionsAccepted: yup

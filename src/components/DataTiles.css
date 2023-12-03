@@ -5,7 +5,7 @@
 }
 
 #new {
-  animation: backlight_disappeare 7s ease;
+  animation: backlight_disappeare 10s ease;
 }
 
 @keyframes backlight_disappeare {

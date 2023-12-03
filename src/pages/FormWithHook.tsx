@@ -40,73 +40,107 @@ export const FormWithHook = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="form-with-hook">
-      <label htmlFor="name">Name</label>
-      <input {...register('name')} />
-      {errors.name && <p className="error-message">{errors.name.message}</p>}
+    <form onSubmit={handleSubmit(onSubmit)} className="form">
+      <div className="form__item">
+        <label htmlFor="name">Name</label>
+        <input id="name" {...register('name')} />
+        {errors.name && <p className="error-message">{errors.name.message}</p>}
+      </div>
 
-      <label htmlFor="age">Age</label>
-      <input type="number" {...register('age')} />
-      {errors.age && <p className="error-message">{errors.age.message}</p>}
+      <div className="form__item">
+        <label htmlFor="age">Age</label>
+        <input id="age" type="number" {...register('age')} />
+        {errors.age && <p className="error-message">{errors.age.message}</p>}
+      </div>
 
-      <label htmlFor="email">Email</label>
-      <input {...register('email')} />
-      {errors.email && <p className="error-message">{errors.email.message}</p>}
+      <div className="form__item">
+        <label htmlFor="email">Email</label>
+        <input id="email" {...register('email')} />
+        {errors.email && (
+          <p className="error-message">{errors.email.message}</p>
+        )}
+      </div>
 
-      <label htmlFor="password">Password</label>
-      <input {...register('password')} />
-      <div
-        className="password-strength"
-        style={getPasswordStyles(getValues('password') || '')}
-      ></div>
-      {errors.password && (
-        <p className="error-message">{errors.password.message}</p>
-      )}
+      <div className="form__item">
+        <div className="password-input">
+          <label htmlFor="password">Password</label>
+          <input id="password" {...register('password')} />
+          <div
+            className="password-strength"
+            style={getPasswordStyles(getValues('password') || '')}
+          ></div>
+        </div>
+        {errors.password && (
+          <p className="error-message">{errors.password.message}</p>
+        )}
+      </div>
 
-      <label htmlFor="confirmPassword">Confirm password</label>
-      <input {...register('confirmPassword')} />
-      {errors.confirmPassword && (
-        <p className="error-message">{errors.confirmPassword.message}</p>
-      )}
+      <div className="form__item">
+        <label htmlFor="confirmPassword">Confirm password</label>
+        <input id="confirmPassword" {...register('confirmPassword')} />
+        {errors.confirmPassword && (
+          <p className="error-message">{errors.confirmPassword.message}</p>
+        )}
+      </div>
 
-      <CountryAutocomplete {...register('country')} />
-      {errors.country && (
-        <p className="error-message">{errors.country.message}</p>
-      )}
+      <div className="form__item">
+        <CountryAutocomplete {...register('country')} />
+        {errors.country && (
+          <p className="error-message">{errors.country.message}</p>
+        )}
+      </div>
 
-      <div className="gender-radio-container">
-        <p>Gender:</p>
-        <div className="gender-radio">
-          <input type="radio" id="male" value="male" {...register('gender')} />
-          <label htmlFor="male">male</label>
-          <input
-            type="radio"
-            id="female"
-            value="female"
-            {...register('gender')}
-          />
-          <label htmlFor="female">female</label>
+      <div className="form__item">
+        <div className="gender-radio-container">
+          <p>Gender:</p>
+          <div className="gender-radio">
+            <input
+              type="radio"
+              id="male"
+              value="male"
+              {...register('gender')}
+            />
+            <label htmlFor="male">male</label>
+
+            <input
+              type="radio"
+              id="female"
+              value="female"
+              {...register('gender')}
+            />
+            <label htmlFor="female">female</label>
+          </div>
+        </div>
+        {errors.gender && (
+          <p className="error-message">{errors.gender.message}</p>
+        )}
+      </div>
+
+      <div className="form__item">
+        <div className="file-input-container">
+          <label htmlFor="file">Choose File</label>
+          <input id="file" type="file" {...register('file')} />
+          {errors.file && (
+            <p className="error-message">{errors.file.message}</p>
+          )}
         </div>
       </div>
-      {errors.gender && (
-        <p className="error-message">{errors.gender.message}</p>
-      )}
 
-      <div className="file-input-container">
-        <label htmlFor="file">Choose File</label>
-        <input id="file" type="file" {...register('file')} />
+      <div className="form__item">
+        <div className="conditions-checkbox-container">
+          <label htmlFor="conditionsAccepted">
+            I agree to the terms and conditions
+          </label>
+          <input
+            id="conditionsAccepted"
+            type="checkbox"
+            {...register('conditionsAccepted')}
+          />
+        </div>
+        {errors.conditionsAccepted && (
+          <p className="error-message">{errors.conditionsAccepted.message}</p>
+        )}
       </div>
-      {errors.file && <p className="error-message">{errors.file.message}</p>}
-
-      <div className="conditions-checkbox-container">
-        <label htmlFor="conditionsAccepted">
-          I agree to the terms and conditions
-        </label>
-        <input type="checkbox" {...register('conditionsAccepted')} />
-      </div>
-      {errors.conditionsAccepted && (
-        <p className="error-message">{errors.conditionsAccepted.message}</p>
-      )}
 
       {Object.entries(errors).length ? (
         <button type="submit" disabled>

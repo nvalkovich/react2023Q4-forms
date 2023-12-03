@@ -5,14 +5,10 @@
   width: 100%;
 }
 
-.country-input-container input {
-  margin: 10px 0px 0px 0px;
-}
-
 .autocomplete {
   position: absolute;
   left: 0;
-  top: 87px;
+  top: 75px;
   width: inherit;
   background: white;
   list-style: none;
@@ -22,6 +18,7 @@
   height: auto;
   overflow: auto;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  z-index: 5;
 }
 
 .autocomplete__item {

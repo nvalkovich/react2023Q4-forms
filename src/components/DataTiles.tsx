@@ -22,6 +22,7 @@ export const DataTiles = ({ data }: DataTilesProps) => {
               <p>Age: {dataItem.age}</p>
               <p>Email: {dataItem.email}</p>
               <p>Password: {dataItem.password}</p>
+              <p>Confirmed password: {dataItem.password}</p>
               <p>Gender: {dataItem.gender}</p>
               <p>
                 Conditions accepted:{' '}

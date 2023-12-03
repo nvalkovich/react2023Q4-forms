@@ -50,6 +50,7 @@ export const CountryAutocomplete = React.forwardRef<
       <div className="country-input-container">
         <label htmlFor="country">Country</label>
         <input
+          id="country"
           onChange={onChangeInput}
           onBlur={onBlurInput}
           value={searchValue}
