@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { FormData } from '../types/interfaces';
+import { TileData } from '../types/interfaces';
 
 const formSlice = createSlice({
   name: 'form',
@@ -15,7 +15,7 @@ const formSlice = createSlice({
       file: FileList,
       country: '',
     },
-    dataList: [] as FormData[],
+    dataList: [] as TileData[],
   },
   reducers: {
     setFormData(state, action) {
