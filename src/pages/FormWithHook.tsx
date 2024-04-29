@@ -49,7 +49,7 @@ export const FormWithHook = () => {
 
       <div className="form__item">
         <label htmlFor="age">Age</label>
-        <input id="age" type="number" {...register('age')} />
+        <input id="age" type="number" {...register('age')} min="0" max="100" />
         {errors.age && <p className="error-message">{errors.age.message}</p>}
       </div>
 

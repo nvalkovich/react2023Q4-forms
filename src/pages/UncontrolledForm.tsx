@@ -111,7 +111,14 @@ export const Uncontrolled = () => {
 
       <div className="form__item">
         <label htmlFor="age">Age</label>
-        <input id="age" type="number" ref={ageRef} name="age" />
+        <input
+          id="age"
+          type="number"
+          ref={ageRef}
+          name="age"
+          min="0"
+          max="100"
+        />
         {errors.age && <p className="error-message">{errors.age}</p>}
       </div>
 
